@@ -1,0 +1,46 @@
+services:
+  # 主应用服务（包含前端和后端）
+  insightchart:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: insightchart-app
+    ports:
+      - "5004:5000"
+    environment:
+      # 应用配置
+      - ACCESS_PASSWORD=${ACCESS_PASSWORD}
+      - TOKEN_SECRET=${TOKEN_SECRET}
+      
+      # 大模型API密钥
+      - QWEN_API_KEY=${QWEN_API_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      
+      # 可选配置
+      - DEBUG=${DEBUG:-false}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      # 持久化存储临时文件目录
+      - ./data/temp:/app/temp
+      # 持久化存储日志目录
+      - ./data/logs:/app/logs
+      # 持久化存储配置文件（可选）
+      - ./backend/config:/app/config:ro
+    networks:
+      - insightchart-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+networks:
+  insightchart-network:
+    driver: bridge
+
+volumes:
+  # 数据持久化卷
+  insightchart-data:
+    driver: local

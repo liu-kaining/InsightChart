@@ -1,0 +1,47 @@
+{
+  "app": {
+    "name": "InsightChart AI",
+    "version": "1.0.0",
+    "debug": false,
+    "host": "0.0.0.0",
+    "port": 5000
+  },
+  "security": {
+    "access_password": "${ACCESS_PASSWORD}",
+    "token_secret": "${TOKEN_SECRET}",
+    "token_expires": 3600
+  },
+  "file": {
+    "max_size_mb": 5,
+    "allowed_extensions": [".xlsx", ".xls", ".csv"],
+    "temp_dir": "./temp",
+    "cleanup_interval": 300
+  },
+  "llm": {
+    "default_model": "qwen",
+    "timeout": 120,
+    "retry_times": 3,
+    "min_charts": 8,
+    "max_charts": 20
+  },
+  "logging": {
+    "level": "INFO",
+    "log_dir": "./logs",
+    "max_bytes": 10485760,
+    "backup_count": 5,
+    "console": {
+      "enabled": true,
+      "level": "INFO",
+      "colored": true
+    },
+    "file": {
+      "enabled": true,
+      "level": "DEBUG",
+      "format": "json"
+    },
+    "error_file": {
+      "enabled": true,
+      "level": "ERROR"
+    }
+  }
+}

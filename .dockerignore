@@ -1,0 +1,75 @@
+# Docker构建忽略文件
+
+# Git相关
+.git
+.gitignore
+.gitattributes
+
+# 文档
+README.md
+docs/
+*.md
+
+# IDE和编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# 日志文件
+*.log
+logs/
+
+# 临时文件
+tmp/
+temp/
+.tmp/
+
+# 依赖目录
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# 前端构建产物（会在Docker中重新构建）
+frontend/dist/
+frontend/node_modules/
+
+# 后端虚拟环境
+backend/venv/
+backend/.venv/
+
+# 配置文件中的敏感信息
+.env
+.env.local
+.env.production
+
+# 数据目录
+data/
+uploads/
+
+# 测试相关
+coverage/
+.nyc_output/
+.coverage
+htmlcov/
+.pytest_cache/
+
+# 部署相关
+docker-compose.override.yml
+.dockerignore
+
+# 其他
+*.bak
+*.orig
+*.rej

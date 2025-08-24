@@ -1,0 +1,32 @@
+# 开发环境配置 - 单容器部署
+services:
+  # 开发服务（包含前端和后端）
+  insightchart-dev:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.dev
+    container_name: insightchart-dev
+    ports:
+      - "5004:5000"
+    environment:
+      - TZ=Asia/Shanghai
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - ACCESS_PASSWORD=${ACCESS_PASSWORD}
+      - TOKEN_SECRET=${TOKEN_SECRET}
+      - QWEN_API_KEY=${QWEN_API_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+    volumes:
+      # 代码热重载（可选，如果需要实时修改代码）
+      # - ./backend:/app
+      # - ./frontend:/app/frontend
+      - ./backend/temp:/app/temp
+      # 日志目录映射
+      - ./logs/backend:/app/logs
+    networks:
+      - dev-network
+    restart: unless-stopped
+
+networks:
+  dev-network:
+    driver: bridge
